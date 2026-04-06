@@ -1,5 +1,6 @@
 # ZAP_Product_Deduplication_Assignment
 A GenAI-powered solution for product entity resolution and price optimization for ZAP Group.
+ <img width="270" height="151" alt="image" src="https://github.com/user-attachments/assets/05e7cca3-e7be-4126-b78a-cb550f9d6854" />
 
 ## עברית
 
