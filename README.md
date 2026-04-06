@@ -7,8 +7,30 @@ A GenAI-powered solution for product entity resolution and price optimization fo
 ### תיאור הפרויקט
 פרויקט זה פותח כחלק ממשימת הבית לתפקיד GenAI Exploration Lead ב-ZAP.
 הפתרון מקבל רשימת מוצרים עם כפילויות ושמות לא אחידים, מאחד אותם ומחזיר רשימה מסודרת עם המחיר המינימלי לכל מוצר.
+על מנת לענות על השאלה רשמתי את הפרמוט הבא:
 
----
+---אתה עובד בחברת ZAP בתור  מומחה נתונים ל Ecommerce וקיבלת רשימה של מוצרים(מתוך קובץ נתונים נתון/API )עם כפילות ושמות לא אחידים המטרה ותפקידך היא להחזיר קובץ מסכם שמאחד את הכפילות ומחזיר רשימה עם המחיר המינימלי לכל מוצר ללקוח, המשימה תתבצע בכמה שלבים :
+1.תסקור ותקרא את הנתונים בקבוץ הנתון ותמחק שורות ריקות שלא מצורפות דאטה תבצע DATA Cleaning  
+2. שמוצר יהיה זהה מאפייני המוצר: כלומר הפרמטרים המגדרים את המוצר חייבים להתאים בכולם ולא להיות שונים: 
+•	דגם: למשל- Samsung s23 ו-סמסונג גלקסי 23- מוצר שונה לא אותו מוצר
+•	 מפרט טכני ליבתי:
+נפח אחסון: 128GB לעומת 256GB זה לא אותו מוצר.
+זיכרון RAM: 8GB לעומת 12GB זה לא אותו מוצר.
+דור תקשורת: 4G לעומת 5G.
+•	מותג Samsung לעומת Apple  מוצר שונה הבדל שפה במותג אינו הבדל.
+3. תמנע מרעשים ב DATA שמופעים במוצר איך לא משנים את המאפיינם שלו:
+•	שפה: עברית לעומת אנגלית.
+•	שם היבואן: יבואן רשמי" לעומת "סל-קומיוניקיישן" (זה אותו מכשיר, רק המוכר שונה).
+•	תיאורים שיווקיים: במבצע!", "חדש!", "משלוח חינם", "מבצע לחג"..
+•	צבע : רק אם צבעים השונים של אותו דגם שונים משמעותית תחשיב אם לא תתעלם.
+4. החזר את הפלט בפורמט הבא:
+•	טבלה עם העמודות: שם_מוצר_מנורמל | מותג | אחסון | RAM | דור | מחיר_מינימלי (בשקלים, פורמט: X,XXX ₪) | מספר_הופעות
+•	שמות מוצרים באנגלית בפורמט אחיד.
+•	אם אינך בטוח אם שני מוצרים זהים — השאר אותם נפרדים.
+•	מיין את הרשימה הסופית מהמחיר הנמוך לגבוה.
+•	שמור את הפלט כקובץ Excel בשם zap_products_summary.xlsx
+
+
 
 ### 💡 גישת החשיבה
 
@@ -87,7 +109,16 @@ python zap_dedup.py
 - צבע מוצר מתעלם אלא אם שונה משמעותית
 - במקרי ספק — המוצרים נשמרים נפרדים (Conservative approach)
 
----
+---🛠 Tech Stack | כלים טכנולוגיים
+בפרויקט זה נעשה שימוש בכלים המתקדמים ביותר בשוק כדי להבטיח דיוק וסקלביליות:
+
+Python 3.10+: שפת הפיתוח המרכזית לניהול הלוגיקה והדאטה.
+
+Anthropic Claude 3.5 Sonnet: מודל השפה (LLM) שנבחר לביצוע הנירמול והזיהוי בזכות יכולות הניתוח המדויקות שלו.
+
+Google Gemini 1.5 Pro: שימש ככלי עזר (AI Assistant) לאופטימיזציה של הקוד ובניית פרומפטים.
+
+Pandas & Openpyxl: ספריות לניהול טבלאות נתונים וייצוא לקבצי Excel.
 ---
 
 ## English
@@ -174,4 +205,13 @@ python zap_dedup.py
 - Solution assumes input data contains `name` and `price` columns
 - Product color is ignored unless significantly different
 - When uncertain — products are kept separate (Conservative approach)
+🛠 Tech Stack
+This project utilizes industry-leading tools to ensure high precision and scalability:
 
+Python 3.10+: The primary development language used for data orchestration and core logic.
+
+Anthropic Claude 3.5 Sonnet: The Large Language Model (LLM) selected for normalization and entity resolution due to its superior analytical capabilities.
+
+Google Gemini 1.5 Pro: Utilized as an AI Assistant for code optimization and advanced prompt engineering.
+
+Pandas & Openpyxl: Essential libraries for robust data frame manipulation and Excel report generation.
