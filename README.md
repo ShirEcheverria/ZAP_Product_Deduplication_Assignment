@@ -205,6 +205,7 @@ python zap_dedup.py
 - Solution assumes input data contains `name` and `price` columns
 - Product color is ignored unless significantly different
 - When uncertain — products are kept separate (Conservative approach)
+  
 🛠 Tech Stack
 This project utilizes industry-leading tools to ensure high precision and scalability:
 
